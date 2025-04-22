@@ -23,12 +23,12 @@ resource "helm_release" "argocd" {
                             } : {
                                 "cert-manager.io/issuer" = var.issuer
                             }
-                        ) : {}
+                        ) : tomap({})
                         tls = var.enable_tls ? {
                             hosts = [
                                 var.domainName
                             ]
-                        } : {}
+                        } : tomap({})
                     } : {}
                 }
             }
