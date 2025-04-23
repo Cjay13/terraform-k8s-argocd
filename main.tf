@@ -7,29 +7,25 @@ resource "helm_release" "argocd" {
     version = var.chart_version
 
     values = [
-        yamlencode(
-            {
-                global = var.enable_ingress ? {
-                    domain = var.domainName
-                } : {}
+      yamlencode({
+        global = var.enable_ingress ? {
+          domain = var.domainName
+        } : {}
 
-                server = {
-                    ingress = var.enable_ingress ? {
-                        enabled = true
-                        ingressClassName = var.ingressClassName
-                        annotations = {
-                            "cert-manager.io/cluster-issuer" = var.enable_tls && var.use_cluster_issuer ? var.clusterIssuer : null
-                            "cert-manager.io/issuer"         = var.enable_tls && !var.use_cluster_issuer ? var.issuer : null
-                        }
-                        tls = var.enable_tls ? {
-                            hosts = [
-                                var.domainName
-                            ]
-                        } : tomap({})
-                    } : {}
-                }
+        server = {
+          ingress = {
+            enabled           = var.enable_ingress
+            ingressClassName  = var.enable_ingress ? var.ingressClassName : null
+            annotations = {
+              "cert-manager.io/cluster-issuer" = var.enable_tls && var.use_cluster_issuer ? var.clusterIssuer : null
+              "cert-manager.io/issuer"         = var.enable_tls && !var.use_cluster_issuer ? var.issuer : null
             }
-        )
+            tls = var.enable_ingress && var.enable_tls ? {
+              hosts = [var.domainName]
+            } : {}
+          }
+        }
+      })
     ]
 }
 
