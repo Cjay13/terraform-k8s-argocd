@@ -12,6 +12,12 @@ resource "helm_release" "argocd" {
           domain = var.domainName
         } : {}
 
+        config = {
+            params = {
+                server.insecure = var.enable_ingress ? true : false
+            }
+        }
+
         server = {
           ingress = {
             enabled           = var.enable_ingress
