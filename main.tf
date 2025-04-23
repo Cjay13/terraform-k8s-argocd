@@ -18,7 +18,6 @@ resource "helm_release" "argocd" {
             ingressClassName  = var.enable_ingress ? var.ingressClassName : null
             annotations = {
               "cert-manager.io/cluster-issuer" = var.enable_tls && var.use_cluster_issuer ? var.clusterIssuer : null
-              "cert-manager.io/issuer"         = var.enable_tls && !var.use_cluster_issuer ? var.issuer : null
             }
             tls = var.enable_ingress && var.enable_tls ? {
               hosts = [var.domainName]
