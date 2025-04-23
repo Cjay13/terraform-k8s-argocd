@@ -14,7 +14,7 @@ resource "helm_release" "argocd" {
 
         config = {
             params = {
-                server.insecure = var.enable_ingress ? true : false
+                "server.insecure" = var.enable_ingress ? true : false
             }
         }
 
