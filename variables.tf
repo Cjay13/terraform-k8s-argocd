@@ -38,7 +38,7 @@ variable "ingressClassName" {
 variable "use_cluster_issuer" {
     type = bool
     description = "Whether to use clusterIssuer or not, if not Issuer will be used"
-    default = false
+    default = true
 }
 
 variable "clusterIssuer" {
