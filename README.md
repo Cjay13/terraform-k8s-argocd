@@ -7,14 +7,16 @@ Terraform module to install and configure ArogCD in a K8s cluster
 - Compatible with Kubernetes clusters provisioned via any provider
 
 **Input Variable**
-| Name               | Type    | Description                                                    | Required |
-|--------------------|---------|----------------------------------------------------------------|----------|
-| namespace          | string  | Namespace where Argo CD will be deployed                      | ✅ Yes   |
-| enable_ingress     | bool    | Enable or disable Ingress                                     | ✅ Yes   |
-| ingressClassName   | string  | Ingress class name (e.g., nginx)                              | ✅ Yes   |
-| enable_tls         | bool    | Enable TLS on Ingress                                         | ✅ Yes   |
-| domainName         | string  | Domain name used for Ingress (e.g., argocd.example.com)       | ✅ Yes   |
-| use_cluster_issuer | bool    | Whether to use a Cert-Manager cluster issuer                  | ✅ Yes   |
-| clusterIssuer      | string  | Name of the Cert-Manager cluster issuer (e.g., letsencrypt-prod) | ✅ Yes   |
-| chart_version      | string  | Version of the Argo CD Helm chart to install                  | ✅ Yes   |
+| Name               | Type    | Description                                                               | Default      | Required                                                                 |
+|--------------------|---------|---------------------------------------------------------------------------|--------------|--------------------------------------------------------------------------|
+| namespace          | string  | Kubernetes namespace where ArgoCD will be deployed                        | "argocd"     | Optional (if not specified, uses default value "argocd")                |
+| chart_version      | string  | ArgoCD Helm chart version                                                 | "7.8.23"     | Optional (if not specified, uses default value "7.8.23")                |
+| enable_ingress     | bool    | Enable ingress for ArgoCD                                                 | false        | Optional (if not specified, uses default value "false")                 |
+| enable_tls         | bool    | Enable TLS for ArgoCD ingress                                             | false        | Optional (if not specified, uses default value "false")                 |
+| domainName         | string  | Domain name for ArgoCD (required if `enable_ingress = true`)              | ""           | **Required** if `enable_ingress` is `true`                               |
+| ingressClassName   | string  | Ingress class name (required if `enable_ingress = true`)                  | "nginx"      | **Required** if `enable_ingress` is `true`                               |
+| use_cluster_issuer | bool    | Use Cert-Manager ClusterIssuer (required if `enable_tls = true`)          | true        | **Required** if `enable_tls` is `true`                                   |
+| clusterIssuer      | string  | Name of ClusterIssuer (required if `use_cluster_issuer = true`)           | ""           | **Required** if `use_cluster_issuer` is `true`                           |
+|
+
 
