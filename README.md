@@ -17,6 +17,6 @@ Terraform module to install and configure ArogCD in a K8s cluster
 | ingressClassName   | string  | Ingress class name (required if `enable_ingress = true`)                  | "nginx"      | **Required** if `enable_ingress` is `true`                               |
 | use_cluster_issuer | bool    | Use Cert-Manager ClusterIssuer (required if `enable_tls = true`)          | true        | **Required** if `enable_tls` is `true`                                   |
 | clusterIssuer      | string  | Name of ClusterIssuer (required if `use_cluster_issuer = true`)           | ""           | **Required** if `use_cluster_issuer` is `true`                           |
-|
+
 
 
